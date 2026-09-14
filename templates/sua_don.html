@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Sửa đơn {{ don.ma_don }}
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            EDIT ORDER
+        </span>
+
+        <h1>
+            Sửa đơn {{ don.ma_don }}
+        </h1>
+
+        <p>
+            Cập nhật thông tin đơn đặt hoa.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container form-container">
+
+        <form
+            method="POST"
+            class="order-form"
+        >
+
+            <div class="form-section">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Mã đơn
+                        </label>
+
+                        <input
+                            type="text"
+                            value="{{ don.ma_don }}"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Tên khách
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ten_khach"
+                            value="{{ don.ten_khach }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Số điện thoại
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="sdt"
+                            value="{{ don.sdt }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Dịp
+                        </label>
+
+                        <input
+                            type="text"
+                            name="dip"
+                            value="{{ don.dip }}"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group form-group-full">
+
+                        <label>
+                            Mẫu hoa
+                        </label>
+
+                        <select
+                            name="ma_hoa"
+                            id="flowerSelect"
+                        >
+
+                            {% for hoa in danh_sach_hoa %}
+
+                            <option
+                                value="{{ hoa.ma_hoa }}"
+
+                                data-price="{{ hoa.gia }}"
+
+                                data-stock="{{ hoa.so_luong }}"
+
+                                {% if hoa.ma_hoa == don.ma_hoa %}
+                                selected
+                                {% endif %}
+                            >
+
+                                {{ hoa.ten_hoa }}
+                                -
+                                {{ "{:,.0f}".format(hoa.gia) }}đ
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Số lượng
+                        </label>
+
+                        <input
+                            type="number"
+                            name="so_luong"
+                            value="{{ don.so_luong }}"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phí giao
+                        </label>
+
+                        <input
+                            type="number"
+                            name="phi_giao"
+                            value="{{ don.phi_giao }}"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Ngày đặt
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ngay_dat"
+                            value="{{ don.ngay_dat }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Ngày giao
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ngay_giao"
+                            value="{{ don.ngay_giao }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group form-group-full">
+
+                        <label class="checkbox-label">
+
+                            <input
+                                type="checkbox"
+                                name="giao_gap"
+
+                                {% if don.phu_phi_gap > 0 %}
+                                checked
+                                {% endif %}
+                            >
+
+                            <span>
+                                Giao gấp trong ngày
+                                (+50.000đ)
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-group form-group-full">
+
+                        <label>
+                            Địa chỉ
+                        </label>
+
+                        <textarea
+                            name="dia_chi"
+                            rows="4"
+                            required
+                        >{{ don.dia_chi }}</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('don_hang') }}"
+                    class="btn btn-light"
+                >
+                    Hủy
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Cập nhật đơn
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

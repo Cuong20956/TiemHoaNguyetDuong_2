@@ -1,0 +1,386 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Thêm đơn hàng
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            NEW ORDER
+        </span>
+
+        <h1>
+            Thêm đơn đặt hoa
+        </h1>
+
+        <p>
+            Điền thông tin khách hàng
+            và mẫu hoa cần đặt.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container form-container">
+
+        <form
+            method="POST"
+            class="order-form"
+        >
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    <span>01</span>
+
+                    <div>
+                        <h3>
+                            Thông tin khách hàng
+                        </h3>
+
+                        <p>
+                            Thông tin người nhận hoa
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Mã đơn *
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ma_don"
+                            placeholder="VD: DH021"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Tên khách *
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ten_khach"
+                            placeholder="Nguyễn Văn A"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Số điện thoại *
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="sdt"
+                            placeholder="0912345678"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Dịp
+                        </label>
+
+                        <select name="dip">
+
+                            <option value="Sinh nhật">
+                                Sinh nhật
+                            </option>
+
+                            <option value="Kỷ niệm">
+                                Kỷ niệm
+                            </option>
+
+                            <option value="Khai trương">
+                                Khai trương
+                            </option>
+
+                            <option value="Tốt nghiệp">
+                                Tốt nghiệp
+                            </option>
+
+                            <option value="Valentine">
+                                Valentine
+                            </option>
+
+                            <option value="Ngày 20/10">
+                                Ngày 20/10
+                            </option>
+
+                            <option value="Ngày 8/3">
+                                Ngày 8/3
+                            </option>
+
+                            <option value="Khác">
+                                Khác
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    <span>02</span>
+
+                    <div>
+                        <h3>
+                            Chọn hoa
+                        </h3>
+
+                        <p>
+                            Chọn sản phẩm và số lượng
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group form-group-full">
+
+                        <label>
+                            Mẫu hoa *
+                        </label>
+
+                        <select
+                            name="ma_hoa"
+                            id="flowerSelect"
+                            required
+                        >
+
+                            <option value="">
+                                -- Chọn loại hoa --
+                            </option>
+
+                            {% for hoa in danh_sach_hoa %}
+
+                            <option
+                                value="{{ hoa.ma_hoa }}"
+                                data-price="{{ hoa.gia }}"
+                                data-stock="{{ hoa.so_luong }}"
+                            >
+                                {{ hoa.ten_hoa }}
+                                -
+                                {{ "{:,.0f}".format(hoa.gia) }}đ
+                                -
+                                còn {{ hoa.so_luong }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Đơn giá
+                        </label>
+
+                        <input
+                            type="text"
+                            id="displayPrice"
+                            value="0đ"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Số lượng *
+                        </label>
+
+                        <input
+                            type="number"
+                            name="so_luong"
+                            id="quantity"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
+                        <small id="stockText">
+                            Vui lòng chọn hoa
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    <span>03</span>
+
+                    <div>
+                        <h3>
+                            Giao hàng
+                        </h3>
+
+                        <p>
+                            Thời gian và địa chỉ giao hoa
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Ngày đặt *
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ngay_dat"
+                            placeholder="15/09/2026"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Ngày giao *
+                        </label>
+
+                        <input
+                            type="text"
+                            name="ngay_giao"
+                            placeholder="15/09/2026"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phí giao
+                        </label>
+
+                        <input
+                            type="number"
+                            name="phi_giao"
+                            value="30000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group checkbox-group">
+
+                        <label class="checkbox-label">
+
+                            <input
+                                type="checkbox"
+                                name="giao_gap"
+                                id="urgentCheck"
+                            >
+
+                            <span>
+                                Giao gấp trong ngày
+                                (+50.000đ)
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-group form-group-full">
+
+                        <label>
+                            Địa chỉ giao *
+                        </label>
+
+                        <textarea
+                            name="dia_chi"
+                            rows="4"
+                            placeholder="Nhập địa chỉ giao hoa..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('don_hang') }}"
+                    class="btn btn-light"
+                >
+                    Hủy
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Lưu đơn hàng
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

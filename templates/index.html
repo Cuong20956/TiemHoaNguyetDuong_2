@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Trang chủ - Nguyệt Đường
+{% endblock %}
+
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-banner-wrap">
+
+        <img
+            class="hero-banner"
+            src="{{ url_for('static', filename='images/banner.jpg') }}"
+            alt="Tiệm Hoa Nguyệt Đường"
+        >
+
+        <div class="container hero-content">
+
+            <div class="hero-text">
+
+                <span class="eyebrow">
+                    FLOWER BOUTIQUE
+                </span>
+
+                <h1>
+                    Hoa thay lời muốn nói
+                </h1>
+
+                <p>
+                    Những bó hoa được lựa chọn
+                    để lưu giữ những khoảnh khắc
+                    đáng nhớ của bạn.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="{{ url_for('menu_hoa') }}"
+                        class="btn btn-primary"
+                    >
+                        Khám phá hoa
+                    </a>
+
+                    <a
+                        href="{{ url_for('them_don_route') }}"
+                        class="btn btn-outline"
+                    >
+                        Đặt hoa ngay
+                    </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="eyebrow">
+                    DASHBOARD
+                </span>
+
+                <h2>
+                    Tổng quan cửa hàng
+                </h2>
+            </div>
+
+            <a
+                href="{{ url_for('thong_ke') }}"
+                class="text-link"
+            >
+                Xem thống kê →
+            </a>
+
+        </div>
+
+
+        <div class="stat-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
+                <div>
+                    <span>
+                        Tổng đơn hàng
+                    </span>
+
+                    <h3>
+                        {{ tong_don }}
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+                <div>
+                    <span>
+                        Chưa giao
+                    </span>
+
+                    <h3>
+                        {{ chua_giao }}
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🚚
+                </div>
+
+                <div>
+                    <span>
+                        Đang giao
+                    </span>
+
+                    <h3>
+                        {{ dang_giao }}
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div>
+                    <span>
+                        Đã giao
+                    </span>
+
+                    <h3>
+                        {{ da_giao }}
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card highlight">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <div>
+                    <span>
+                        Doanh thu
+                    </span>
+
+                    <h3>
+                        {{ "{:,.0f}".format(tong_doanh_thu) }}đ
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🌹
+                </div>
+
+                <div>
+                    <span>
+                        Hoa bán chạy
+                    </span>
+
+                    <h4>
+                        {{ hoa_ban_chay }}
+                    </h4>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎁
+                </div>
+
+                <div>
+                    <span>
+                        Dịp phổ biến
+                    </span>
+
+                    <h4>
+                        {{ dip_pho_bien }}
+                    </h4>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section soft-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="eyebrow">
+                    RECENT ORDERS
+                </span>
+
+                <h2>
+                    Đơn hàng gần đây
+                </h2>
+            </div>
+
+            <a
+                href="{{ url_for('don_hang') }}"
+                class="text-link"
+            >
+                Xem tất cả →
+            </a>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Hoa</th>
+                        <th>Số lượng</th>
+                        <th>Ngày giao</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for don in don_gan_day %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ don.ma_don }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ don.ten_khach }}
+                        </td>
+
+                        <td>
+                            {{ don.mau_hoa }}
+                        </td>
+
+                        <td>
+                            {{ don.so_luong }}
+                        </td>
+
+                        <td>
+                            {{ don.ngay_giao }}
+                        </td>
+
+                        <td>
+                            {{ "{:,.0f}".format(don.tong_tien) }}đ
+                        </td>
+
+                        <td>
+
+                            {% if don.trang_thai == "Đã giao" %}
+
+                                <span class="badge badge-success">
+                                    Đã giao
+                                </span>
+
+                            {% elif don.trang_thai == "Đang giao" %}
+
+                                <span class="badge badge-info">
+                                    Đang giao
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-warning">
+                                    Chưa giao
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+                        <td
+                            colspan="7"
+                            class="empty"
+                        >
+                            Chưa có đơn hàng.
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Quản lý đơn hàng
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+
+    <div class="container page-header-row">
+
+        <div>
+            <span class="eyebrow">
+                MANAGEMENT
+            </span>
+
+            <h1>
+                Quản lý đơn hàng
+            </h1>
+
+            <p>
+                Theo dõi và quản lý
+                toàn bộ đơn đặt hoa.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('them_don_route') }}"
+            class="btn btn-primary"
+        >
+            + Thêm đơn
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+        <form
+            class="filter-bar"
+            method="GET"
+        >
+
+            <select name="loai">
+
+                <option
+                    value="ma_don"
+                    {% if loai == "ma_don" %}
+                    selected
+                    {% endif %}
+                >
+                    Mã đơn
+                </option>
+
+                <option
+                    value="ten_khach"
+                    {% if loai == "ten_khach" %}
+                    selected
+                    {% endif %}
+                >
+                    Tên khách
+                </option>
+
+                <option
+                    value="dip"
+                    {% if loai == "dip" %}
+                    selected
+                    {% endif %}
+                >
+                    Dịp
+                </option>
+
+                <option
+                    value="mau_hoa"
+                    {% if loai == "mau_hoa" %}
+                    selected
+                    {% endif %}
+                >
+                    Mẫu hoa
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                name="keyword"
+                value="{{ keyword }}"
+                placeholder="Nhập từ khóa..."
+            >
+
+
+            <select name="sort">
+
+                <option value="">
+                    Sắp xếp mặc định
+                </option>
+
+                <option
+                    value="ngay_asc"
+                    {% if sort == "ngay_asc" %}
+                    selected
+                    {% endif %}
+                >
+                    Ngày giao tăng
+                </option>
+
+                <option
+                    value="ngay_desc"
+                    {% if sort == "ngay_desc" %}
+                    selected
+                    {% endif %}
+                >
+                    Ngày giao giảm
+                </option>
+
+                <option
+                    value="tong_asc"
+                    {% if sort == "tong_asc" %}
+                    selected
+                    {% endif %}
+                >
+                    Tổng tiền tăng
+                </option>
+
+                <option
+                    value="tong_desc"
+                    {% if sort == "tong_desc" %}
+                    selected
+                    {% endif %}
+                >
+                    Tổng tiền giảm
+                </option>
+
+            </select>
+
+
+            <button
+                class="btn btn-primary"
+                type="submit"
+            >
+                Tìm kiếm
+            </button>
+
+
+            <a
+                href="{{ url_for('don_hang') }}"
+                class="btn btn-light"
+            >
+                Làm mới
+            </a>
+
+        </form>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Mã</th>
+                        <th>Khách hàng</th>
+                        <th>Điện thoại</th>
+                        <th>Hoa</th>
+                        <th>SL</th>
+                        <th>Ngày giao</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for don in danh_sach_don %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ don.ma_don }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ don.ten_khach }}
+                        </td>
+
+                        <td>
+                            {{ don.sdt }}
+                        </td>
+
+                        <td>
+                            {{ don.mau_hoa }}
+                        </td>
+
+                        <td>
+                            {{ don.so_luong }}
+                        </td>
+
+                        <td>
+                            {{ don.ngay_giao }}
+                        </td>
+
+                        <td>
+                            <strong>
+                                {{ "{:,.0f}".format(don.tong_tien) }}đ
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            {% if don.trang_thai == "Đã giao" %}
+
+                                <span class="badge badge-success">
+                                    Đã giao
+                                </span>
+
+                            {% elif don.trang_thai == "Đang giao" %}
+
+                                <span class="badge badge-info">
+                                    Đang giao
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-warning">
+                                    Chưa giao
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <div class="action-group">
+
+                                <a
+                                    href="{{ url_for(
+                                        'sua_don_route',
+                                        ma_don=don.ma_don
+                                    ) }}"
+                                    class="action-btn edit"
+                                >
+                                    Sửa
+                                </a>
+
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'trang_thai_don',
+                                        ma_don=don.ma_don
+                                    ) }}"
+                                >
+
+                                    <select
+                                        name="trang_thai"
+                                        onchange="this.form.submit()"
+                                        class="status-select"
+                                    >
+
+                                        <option
+                                            value="Chưa giao"
+                                            {% if don.trang_thai == "Chưa giao" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Chưa giao
+                                        </option>
+
+                                        <option
+                                            value="Đang giao"
+                                            {% if don.trang_thai == "Đang giao" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Đang giao
+                                        </option>
+
+                                        <option
+                                            value="Đã giao"
+                                            {% if don.trang_thai == "Đã giao" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Đã giao
+                                        </option>
+
+                                    </select>
+
+                                </form>
+
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'xoa_don_route',
+                                        ma_don=don.ma_don
+                                    ) }}"
+                                    onsubmit="
+                                        return confirmDelete()
+                                    "
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="action-btn delete"
+                                    >
+                                        Xóa
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="empty"
+                        >
+                            Không tìm thấy đơn hàng.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

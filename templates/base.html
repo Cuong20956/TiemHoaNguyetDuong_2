@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        Tiệm Hoa Nguyệt Đường
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container navbar">
+
+        <a
+            href="{{ url_for('index') }}"
+            class="brand"
+        >
+            <img
+                class="brand-logo"
+                src="{{ url_for('static', filename='images/logo.jpg') }}"
+                alt="Logo Tiệm Hoa Nguyệt Đường"
+            >
+
+            <div>
+                <strong>
+                    NGUYỆT ĐƯỜNG
+                </strong>
+
+                <span>
+                    Flower Boutique
+                </span>
+            </div>
+        </a>
+
+        <button
+            class="menu-toggle"
+            onclick="toggleMenu()"
+        >
+            ☰
+        </button>
+
+        <nav
+            class="nav-links"
+            id="navLinks"
+        >
+
+            <a href="{{ url_for('index') }}">
+                Trang chủ
+            </a>
+
+            <a href="{{ url_for('don_hang') }}">
+                Đơn hàng
+            </a>
+
+            <a href="{{ url_for('them_don_route') }}">
+                Thêm đơn
+            </a>
+
+            <a href="{{ url_for('menu_hoa') }}">
+                Menu hoa
+            </a>
+
+            <a href="{{ url_for('tra_cuu') }}">
+                Tra cứu
+            </a>
+
+            <a href="{{ url_for('thong_ke') }}">
+                Thống kê
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    {% with messages = get_flashed_messages(
+        with_categories=true
+    ) %}
+
+        {% if messages %}
+
+            <div class="container flash-container">
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="alert alert-{{ category }}"
+                    >
+                        <span>
+                            {{ message }}
+                        </span>
+
+                        <button
+                            onclick="this.parentElement.remove()"
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-content">
+
+        <div>
+            <h3>
+                🌸 Tiệm Hoa Nguyệt Đường
+            </h3>
+
+            <p>
+                Gửi yêu thương qua từng đóa hoa.
+            </p>
+        </div>
+
+        <div>
+            <p>
+                Website quản lý & đặt hoa
+            </p>
+
+            <p>
+                Flask + SQLite
+            </p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+{% block script %}
+{% endblock %}
+
+</body>
+</html>

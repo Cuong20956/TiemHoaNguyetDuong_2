@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Menu hoa
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            COLLECTION
+        </span>
+
+        <h1>
+            Menu hoa hôm nay
+        </h1>
+
+        <p>
+            Khám phá những mẫu hoa
+            được yêu thích tại Nguyệt Đường.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="flower-grid">
+
+            {% for hoa in danh_sach_hoa %}
+
+                <article class="flower-card">
+
+                    <div class="flower-image">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/flowers/' + hoa.hinh_anh
+                            ) }}"
+                            alt="{{ hoa.ten_hoa }}"
+
+                            onerror="
+                                this.src='https://placehold.co/500x500?text=Flower'
+                            "
+                        >
+
+                        {% if hoa.so_luong > 0 %}
+
+                            <span class="stock-tag available">
+                                Còn hàng
+                            </span>
+
+                        {% else %}
+
+                            <span class="stock-tag unavailable">
+                                Hết hàng
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="flower-body">
+
+                        <small>
+                            {{ hoa.ma_hoa }}
+                        </small>
+
+                        <h3>
+                            {{ hoa.ten_hoa }}
+                        </h3>
+
+                        <div class="flower-price">
+                            {{ "{:,.0f}".format(hoa.gia) }}đ
+                        </div>
+
+                        <div class="flower-meta">
+
+                            <span>
+                                Tồn kho
+                            </span>
+
+                            <strong>
+                                {{ hoa.so_luong }}
+                            </strong>
+
+                        </div>
+
+
+                        {% if hoa.so_luong > 0 %}
+
+                            <a
+                                href="{{ url_for(
+                                    'them_don_route'
+                                ) }}?hoa={{ hoa.ma_hoa }}"
+                                class="btn btn-primary btn-full"
+                            >
+                                Đặt hoa
+                            </a>
+
+                        {% else %}
+
+                            <button
+                                class="btn btn-disabled btn-full"
+                                disabled
+                            >
+                                Hết hàng
+                            </button>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

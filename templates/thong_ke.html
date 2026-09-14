@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Thống kê
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            ANALYTICS
+        </span>
+
+        <h1>
+            Thống kê cửa hàng
+        </h1>
+
+        <p>
+            Theo dõi doanh thu,
+            sản phẩm và trạng thái đơn.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="stat-grid">
+
+            <div class="stat-card highlight">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <div>
+                    <span>
+                        Tổng doanh thu
+                    </span>
+
+                    <h3>
+                        {{ "{:,.0f}".format(tong_doanh_thu) }}đ
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🌹
+                </div>
+
+                <div>
+                    <span>
+                        Hoa bán chạy
+                    </span>
+
+                    <h4>
+                        {{ hoa_ban_chay }}
+                    </h4>
+
+                    <small>
+                        {{ so_luong_hoa_ban_chay }}
+                        sản phẩm
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎁
+                </div>
+
+                <div>
+                    <span>
+                        Dịp phổ biến
+                    </span>
+
+                    <h4>
+                        {{ dip_pho_bien }}
+                    </h4>
+
+                    <small>
+                        {{ so_don_dip }}
+                        đơn hàng
+                    </small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="analytics-grid">
+
+            <div class="analytics-card">
+
+                <h3>
+                    Trạng thái đơn hàng
+                </h3>
+
+                {% for ten, so_luong in trang_thai.items() %}
+
+                <div class="progress-item">
+
+                    <div class="progress-label">
+
+                        <span>
+                            {{ ten }}
+                        </span>
+
+                        <strong>
+                            {{ so_luong }}
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-value"
+                            style="--progress-width: {{ [so_luong * 10, 100] | min }}%;"
+                        >
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <h3>
+                    Doanh thu theo tháng
+                </h3>
+
+                {% for thang, doanh_thu in doanh_thu_thang.items() %}
+
+                    <div class="revenue-row">
+
+                        <span>
+                            {{ thang }}
+                        </span>
+
+                        <strong>
+                            {{ "{:,.0f}".format(doanh_thu) }}đ
+                        </strong>
+
+                    </div>
+
+                {% else %}
+
+                    <p>
+                        Chưa có dữ liệu.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <h3>
+                Doanh thu theo ngày
+            </h3>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Doanh thu</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for ngay, doanh_thu in doanh_thu_ngay.items() %}
+
+                        <tr>
+                            <td>
+                                {{ ngay }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ "{:,.0f}".format(doanh_thu) }}đ
+                                </strong>
+                            </td>
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                            <td colspan="2">
+                                Chưa có dữ liệu
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

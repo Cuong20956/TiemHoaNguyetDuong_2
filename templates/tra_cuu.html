@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Tra cứu đơn hàng
+{% endblock %}
+
+
+{% block content %}
+
+<section class="lookup-section">
+
+    <div class="container">
+
+        <div class="lookup-box">
+
+            <span class="eyebrow">
+                ORDER TRACKING
+            </span>
+
+            <h1>
+                Tra cứu đơn hoa
+            </h1>
+
+            <p>
+                Nhập mã đơn để kiểm tra
+                thông tin và trạng thái giao hàng.
+            </p>
+
+
+            <form
+                method="POST"
+                class="lookup-form"
+            >
+
+                <input
+                    type="text"
+                    name="ma_don"
+                    placeholder="Ví dụ: DH001"
+                    required
+                >
+
+                <button
+                    class="btn btn-primary"
+                    type="submit"
+                >
+                    Tra cứu
+                </button>
+
+            </form>
+
+
+            {% if don %}
+
+            <div class="tracking-card">
+
+                <div class="tracking-top">
+
+                    <div>
+
+                        <small>
+                            MÃ ĐƠN HÀNG
+                        </small>
+
+                        <h2>
+                            {{ don.ma_don }}
+                        </h2>
+
+                    </div>
+
+
+                    {% if don.trang_thai == "Đã giao" %}
+
+                        <span class="badge badge-success">
+                            Đã giao
+                        </span>
+
+                    {% elif don.trang_thai == "Đang giao" %}
+
+                        <span class="badge badge-info">
+                            Đang giao
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge badge-warning">
+                            Chưa giao
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="tracking-grid">
+
+                    <div>
+                        <span>
+                            Khách hàng
+                        </span>
+
+                        <strong>
+                            {{ don.ten_khach }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Mẫu hoa
+                        </span>
+
+                        <strong>
+                            {{ don.mau_hoa }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Số lượng
+                        </span>
+
+                        <strong>
+                            {{ don.so_luong }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Ngày giao
+                        </span>
+
+                        <strong>
+                            {{ don.ngay_giao }}
+                        </strong>
+                    </div>
+
+
+                    <div class="wide">
+                        <span>
+                            Địa chỉ
+                        </span>
+
+                        <strong>
+                            {{ don.dia_chi }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Tổng tiền
+                        </span>
+
+                        <strong class="price">
+                            {{ "{:,.0f}".format(don.tong_tien) }}đ
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
