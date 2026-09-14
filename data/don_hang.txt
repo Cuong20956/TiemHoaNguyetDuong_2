@@ -1,0 +1,20 @@
+DH001|KH001|MH001|10|Sinh nhật|01/09/2026|02/09/2026|Cầu Giấy, Hà Nội|30000|0|Đã giao
+DH002|KH002|MH007|5|Khai trương|02/09/2026|02/09/2026|Phủ Lý, Hà Nam|30000|50000|Đã giao
+DH003|KH003|MH005|8|Kỷ niệm|03/09/2026|04/09/2026|TP Nam Định, Nam Định|30000|0|Đã giao
+DH004|KH004|MH014|3|Sinh nhật|04/09/2026|05/09/2026|TP Ninh Bình, Ninh Bình|30000|0|Đã giao
+DH005|KH005|MH008|15|Đám cưới|05/09/2026|07/09/2026|Thanh Xuân, Hà Nội|40000|0|Đã giao
+DH006|KH006|MH012|2|Khai trương|06/09/2026|07/09/2026|TP Hưng Yên, Hưng Yên|30000|0|Đã giao
+DH007|KH007|MH003|12|Sinh nhật|07/09/2026|08/09/2026|Phủ Lý, Hà Nam|30000|0|Đã giao
+DH008|KH008|MH010|4|Kỷ niệm|08/09/2026|08/09/2026|Ba Đình, Hà Nội|30000|50000|Đã giao
+DH009|KH009|MH016|10|Chúc mừng|09/09/2026|10/09/2026|TP Nam Định, Nam Định|35000|0|Đã giao
+DH010|KH010|MH004|8|Sinh nhật|10/09/2026|11/09/2026|Hoàng Mai, Hà Nội|30000|0|Đã giao
+DH011|KH011|MH011|10|20/11|11/09/2026|16/09/2026|Phủ Lý, Hà Nam|30000|0|Chưa giao
+DH012|KH012|MH002|6|Kỷ niệm|12/09/2026|16/09/2026|Tam Điệp, Ninh Bình|35000|0|Chưa giao
+DH013|KH013|MH015|7|Sinh nhật|13/09/2026|15/09/2026|Đống Đa, Hà Nội|30000|0|Đang giao
+DH014|KH014|MH006|5|Chúc mừng|14/09/2026|15/09/2026|Văn Giang, Hưng Yên|30000|0|Đang giao
+DH015|KH015|MH020|8|Sinh nhật|15/09/2026|15/09/2026|Phủ Lý, Hà Nam|30000|50000|Đang giao
+DH016|KH016|MH009|4|Kỷ niệm|15/09/2026|17/09/2026|Hai Bà Trưng, Hà Nội|30000|0|Chưa giao
+DH017|KH017|MH017|12|Tốt nghiệp|15/09/2026|18/09/2026|TP Nam Định, Nam Định|35000|0|Chưa giao
+DH018|KH018|MH013|10|Sinh nhật|15/09/2026|19/09/2026|Duy Tiên, Hà Nam|30000|0|Chưa giao
+DH019|KH019|MH018|15|Đám cưới|15/09/2026|20/09/2026|Cầu Giấy, Hà Nội|40000|0|Chưa giao
+DH020|KH020|MH019|10|Khai trương|15/09/2026|21/09/2026|TP Ninh Bình, Ninh Bình|35000|0|Chưa giao

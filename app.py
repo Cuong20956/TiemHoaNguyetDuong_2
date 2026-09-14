@@ -28,6 +28,16 @@ from utils import (
     kiem_tra_ngay
 )
 
+from file_handler import (
+    doc_khach_hang,
+    tim_kiem_khach_hang,
+    tim_kiem_hoa,
+    tim_hoa_theo_ma,
+    them_hoa,
+    sua_hoa,
+    xoa_hoa
+)
+
 
 app = Flask(__name__)
 
@@ -878,6 +888,122 @@ def thong_ke():
         doanh_thu_ngay=doanh_thu_ngay,
         doanh_thu_thang=doanh_thu_thang
     )
+
+
+# ==========================================
+# KHÁCH HÀNG
+# ==========================================
+@app.route("/khach-hang")
+def khach_hang():
+    tu_khoa = request.args.get(
+        "q",
+        ""
+    ).strip()
+
+    if tu_khoa:
+        danh_sach = tim_kiem_khach_hang(
+            tu_khoa
+        )
+    else:
+        danh_sach = doc_khach_hang()
+
+    return render_template(
+        "khach_hang.html",
+        danh_sach=danh_sach,
+        tu_khoa=tu_khoa
+    )
+
+
+# ==========================================
+# QUẢN LÝ HOA TỪ FILE TXT
+# ==========================================
+@app.route("/quan-ly-hoa")
+def quan_ly_hoa():
+    tu_khoa = request.args.get("q", "").strip()
+    danh_sach = tim_kiem_hoa(tu_khoa)
+
+    return render_template(
+        "quan_ly_hoa.html",
+        danh_sach=danh_sach,
+        tu_khoa=tu_khoa
+    )
+
+
+@app.route("/hoa/them", methods=["GET", "POST"])
+def them_hoa_route():
+    if request.method == "POST":
+        try:
+            hoa_moi = {
+                "ma_hoa": request.form.get("ma_hoa", "").strip(),
+                "ten_hoa": request.form.get("ten_hoa", "").strip(),
+                "so_luong": int(request.form.get("so_luong", "0")),
+                "gia": float(request.form.get("gia", "0")),
+                "hinh_anh": request.form.get("hinh_anh", "").strip()
+            }
+
+            if not hoa_moi["ma_hoa"] or not hoa_moi["ten_hoa"]:
+                raise ValueError
+
+            if hoa_moi["so_luong"] < 0 or hoa_moi["gia"] < 0:
+                raise ValueError
+
+            thanh_cong, thong_bao = them_hoa(hoa_moi)
+        except (TypeError, ValueError):
+            thanh_cong = False
+            thong_bao = "Vui lòng nhập dữ liệu hoa hợp lệ."
+
+        flash(thong_bao, "success" if thanh_cong else "danger")
+
+        if thanh_cong:
+            return redirect(url_for("quan_ly_hoa"))
+
+    return render_template("them_hoa.html")
+
+
+@app.route("/hoa/<ma_hoa>/sua", methods=["GET", "POST"])
+def sua_hoa_route(ma_hoa):
+    hoa = tim_hoa_theo_ma(ma_hoa)
+
+    if hoa is None:
+        flash("Không tìm thấy hoa.", "danger")
+        return redirect(url_for("quan_ly_hoa"))
+
+    if request.method == "POST":
+        try:
+            du_lieu_moi = {
+                "ten_hoa": request.form.get("ten_hoa", "").strip(),
+                "so_luong": int(request.form.get("so_luong", "0")),
+                "gia": float(request.form.get("gia", "0")),
+                "hinh_anh": request.form.get("hinh_anh", "").strip()
+            }
+
+            if not du_lieu_moi["ten_hoa"]:
+                raise ValueError
+
+            if du_lieu_moi["so_luong"] < 0 or du_lieu_moi["gia"] < 0:
+                raise ValueError
+
+            thanh_cong, thong_bao = sua_hoa(ma_hoa, du_lieu_moi)
+        except (TypeError, ValueError):
+            thanh_cong = False
+            thong_bao = "Vui lòng nhập dữ liệu hoa hợp lệ."
+
+        flash(thong_bao, "success" if thanh_cong else "danger")
+
+        if thanh_cong:
+            return redirect(url_for("quan_ly_hoa"))
+
+        hoa = dict(hoa)
+        hoa.update(du_lieu_moi)
+
+    return render_template("sua_hoa.html", hoa=hoa)
+
+
+@app.route("/hoa/<ma_hoa>/xoa", methods=["POST"])
+def xoa_hoa_route(ma_hoa):
+    thanh_cong, thong_bao = xoa_hoa(ma_hoa)
+    flash(thong_bao, "success" if thanh_cong else "danger")
+    return redirect(url_for("quan_ly_hoa"))
 
 
 # ==========================================

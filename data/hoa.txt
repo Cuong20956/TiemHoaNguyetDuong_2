@@ -1,0 +1,20 @@
+MH001|Hoa hồng đỏ|50|15000|Còn hàng|hoa_hong_do.jpg
+MH002|Hoa hồng trắng|40|16000|Còn hàng|hoa_hong_trang.jpg
+MH003|Hoa hồng vàng|45|17000|Còn hàng|hoa_hong_vang.jpg
+MH004|Hoa hồng phấn|35|18000|Còn hàng|hoa_hong_phan.jpg
+MH005|Hoa tulip đỏ|30|30000|Còn hàng|hoa_tulip_do.jpg
+MH006|Hoa tulip trắng|25|32000|Còn hàng|hoa_tulip_trang.jpg
+MH007|Hoa hướng dương|40|25000|Còn hàng|hoa_huong_duong.jpg
+MH008|Hoa baby trắng|50|12000|Còn hàng|hoa_baby_trang.jpg
+MH009|Hoa ly|25|35000|Còn hàng|hoa_ly.jpg
+MH010|Hoa cẩm tú cầu|20|45000|Còn hàng|hoa_cam_tu_cau.jpg
+MH011|Hoa cẩm chướng|30|18000|Còn hàng|hoa_cam_chuong.jpg
+MH012|Hoa lan hồ điệp|18|80000|Còn hàng|hoa_lan_ho_diep.jpg
+MH013|Hoa đồng tiền|35|20000|Còn hàng|hoa_dong_tien.jpg
+MH014|Hoa mẫu đơn|20|65000|Còn hàng|hoa_mau_don.jpg
+MH015|Hoa lavender|30|28000|Còn hàng|hoa_lavender.jpg
+MH016|Hoa sen|25|30000|Còn hàng|hoa_sen.jpg
+MH017|Hoa cúc họa mi|35|22000|Còn hàng|hoa_cuc_hoa_mi.jpg
+MH018|Hoa thạch thảo|30|18000|Còn hàng|hoa_thach_thao.jpg
+MH019|Hoa salem|25|20000|Còn hàng|hoa_salem.jpg
+MH020|Hoa ping pong|30|26000|Còn hàng|hoa_ping_pong.jpg

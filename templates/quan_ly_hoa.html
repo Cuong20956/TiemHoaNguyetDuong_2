@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Quản lý hoa{% endblock %}
+
+{% block content %}
+<section class="page-header">
+	<div class="container page-header-row">
+		<div>
+			<span class="eyebrow">FLOWER MANAGEMENT</span>
+			<h1>Quản lý hoa</h1>
+			<p>Danh sách hoa được lưu trong file hoa.txt.</p>
+		</div>
+		<a href="{{ url_for('them_hoa_route') }}" class="btn btn-primary">+ Thêm hoa</a>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container">
+		<form method="GET" class="filter-bar">
+			<input type="text" name="q" value="{{ tu_khoa }}" placeholder="Tìm mã, tên hoặc trạng thái...">
+			<button class="btn btn-primary" type="submit">Tìm kiếm</button>
+			<a href="{{ url_for('quan_ly_hoa') }}" class="btn btn-light">Làm mới</a>
+		</form>
+
+		<div class="table-wrapper">
+			<table>
+				<thead><tr><th>Mã</th><th>Tên hoa</th><th>Tồn kho</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+				<tbody>
+					{% for hoa in danh_sach %}
+					<tr>
+						<td><strong>{{ hoa.ma_hoa }}</strong></td>
+						<td>{{ hoa.ten_hoa }}</td>
+						<td>{{ hoa.so_luong }}</td>
+						<td>{{ "{:,.0f}".format(hoa.gia) }}đ</td>
+						<td>{{ hoa.trang_thai }}</td>
+						<td>
+							<a class="btn btn-light" href="{{ url_for('sua_hoa_route', ma_hoa=hoa.ma_hoa) }}">Sửa</a>
+							<form method="POST" action="{{ url_for('xoa_hoa_route', ma_hoa=hoa.ma_hoa) }}" style="display:inline" onsubmit="return confirmDelete()">
+								<button class="btn btn-disabled" type="submit">Xóa</button>
+							</form>
+						</td>
+					</tr>
+					{% else %}
+					<tr><td colspan="6" class="empty">Không tìm thấy hoa.</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+{% endblock %}

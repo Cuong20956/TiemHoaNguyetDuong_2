@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quản lý khách hàng
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+
+        <span class="eyebrow">
+            CUSTOMER MANAGEMENT
+        </span>
+
+        <h1>Quản lý khách hàng</h1>
+
+        <p>
+            Dữ liệu khách hàng được đọc từ file khach_hang.txt
+        </p>
+
+    </div>
+</section>
+
+
+<section class="section">
+
+    <div class="container">
+
+        <form
+            method="GET"
+            class="filter-bar"
+        >
+
+            <input
+                type="text"
+                name="q"
+                value="{{ tu_khoa }}"
+                placeholder="Tìm mã, tên hoặc SĐT..."
+            >
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Tìm kiếm
+            </button>
+
+            <a
+                href="{{ url_for('khach_hang') }}"
+                class="btn btn-light"
+            >
+                Làm mới
+            </a>
+
+        </form>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã khách</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for khach in danh_sach %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+                        <td>
+                            <strong>
+                                {{ khach.ma_khach }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ khach.ten_khach }}
+                        </td>
+
+                        <td>
+                            {{ khach.sdt }}
+                        </td>
+
+                        <td>
+                            {{ khach.dia_chi }}
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty"
+                        >
+                            Không tìm thấy khách hàng.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
